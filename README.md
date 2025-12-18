@@ -1,6 +1,8 @@
 # classification-report-as-df
-![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)
-![Tests](https://github.com/Michal58/classification-report-as-df/actions/workflows/tests.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/Michal58/classification-report-as-df/blob/main/LICENSE)
+[![Tests](https://github.com/Michal58/classification-report-as-df/actions/workflows/integration-tests.yml/badge.svg)](
+https://github.com/Michal58/classification-report-as-df/actions/workflows/integration-tests.yml
+)
 
 Small, single-module utility that converts scikit-learn's text-style classification report into an easy-to-manipulate pandas `DataFrame`.
 For easier display in IPython environments (e.g. Jupyter), the report can also be returned as a pandas `Styler`.
