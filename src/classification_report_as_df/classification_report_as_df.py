@@ -42,6 +42,12 @@ def classification_report_as_df(
     MACRO = 'macro'
     ACCURACY = 'accuracy'
 
+    if np.size(y_true) == 0:
+        raise ValueError("Found empty input array (y_true) - y_true and y_pred must not be empty.")
+    
+    if np.size(y_pred) == 0:
+        raise ValueError("Found empty input array (y_pred) - y_true and y_pred must not be empty.")
+
     accuracy = accuracy_score(y_true,y_pred)     
     accuracy_support = len(y_pred)      
     metrics_per_classes = np.array(list(precision_recall_fscore_support(y_true, y_pred,zero_division=0))).T      
