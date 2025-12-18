@@ -1,0 +1,13 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  tests:
+    uses: ./.github/workflows/python-tests.yml
+    with:
+      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'

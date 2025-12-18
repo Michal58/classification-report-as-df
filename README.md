@@ -1,5 +1,6 @@
 # classification-report-as-df
 ![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)
+![Tests](https://github.com/Michal58/classification-report-as-df/actions/workflows/tests.yml/badge.svg)
 
 Small, single-module utility that converts scikit-learn's text-style classification report into an easy-to-manipulate pandas `DataFrame`.
 For easier display in IPython environments (e.g. Jupyter), the report can also be returned as a pandas `Styler`.
@@ -40,20 +41,15 @@ git clone https://github.com/Michal58/classification-report-as-df
 cd classification-report-as-df
 ```
 Install dependencies:
-
-Local editable install:
 ```
-pip install -e .
-pip install -r requirements.txt
+pip install classification_report_as_df[dev]
 ```
-
-If you publish an extras group named `dev` and want to show how to
-install it from PyPI, use the package name with hyphens:
+or (from root directory):
 ```
 pip install -e '.[dev]'
 ```
 
-You can run tests calling (from root directory):
+You can run tests calling (from root directory): 
 ```
 pytest
 ```
