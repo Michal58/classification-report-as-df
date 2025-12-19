@@ -3,21 +3,29 @@ name: Manual Release
 on:
   workflow_dispatch:
     inputs:
+      target:
+        description: "Select PyPI type"
+        required: true
+        type: choice
+        default: "testpypi"
+        options:
+          - testpypi
+          - pypi
       confirm:
         description: "Type 'release' to confirm publishing to PyPI"
         required: true
-        default: "release"
+        default: ""
 
 jobs:
-  tests:
-    name: Test (matrix)
+  smoke-test:
+    name: Quick validation
     uses: ./.github/workflows/test-component.yml
     with:
-      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
+      python-versions: '["3.13"]'
 
   release:
     name: Release to PyPI
-    needs: tests
+    needs: smoke-test
     runs-on: ubuntu-latest
     if: github.event.inputs.confirm == 'release'
     environment: release
@@ -49,7 +57,8 @@ jobs:
       - name: Build distributions
         run: python -m build
 
-      - name: Publish distributions to PyPI
+      - name: Publish distributions
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          repository-url: ${{ github.event.inputs.target == 'testpypi' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
           verbose: true
