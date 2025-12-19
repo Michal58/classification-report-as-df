@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "classification-report-as-df"
-version = "0.1.0"
+version = "0.1.1"
 description = "sklearn-style classification report as a pandas DataFrame"
 readme = "README.md"
 authors = [{ name = "Michał Kałuski", email = "kaluski.michal58@gmail.com" }]
