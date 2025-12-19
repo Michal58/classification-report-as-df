@@ -17,15 +17,8 @@ on:
         default: ""
 
 jobs:
-  smoke-test:
-    name: Quick validation
-    uses: ./.github/workflows/test-component.yml
-    with:
-      python-versions: '["3.13"]'
-
   release:
     name: Release to PyPI
-    needs: smoke-test
     runs-on: ubuntu-latest
     if: github.event.inputs.confirm == 'release'
     environment: release

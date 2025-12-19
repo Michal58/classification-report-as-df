@@ -7,7 +7,7 @@ name = "classification-report-as-df"
 version = "0.1.0"
 description = "sklearn-style classification report as a pandas DataFrame"
 readme = "README.md"
-authors = [{ name = "Michal58" }]
+authors = [{ name = "Michał Kałuski", email = "kaluski.michal58@gmail.com" }]
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 dependencies = [
@@ -20,6 +20,9 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
 ]
+
+[project.urls]
+Repository = "https://github.com/Michal58/classification-report-as-df"
 
 [project.optional-dependencies]
 dev = [
