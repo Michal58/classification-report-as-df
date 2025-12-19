@@ -25,7 +25,7 @@ jobs:
 
     permissions:
       id-token: write
-      contents: read
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -39,19 +39,31 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
 
-      - name: Show version from pyproject.toml
+      - name: Get version from pyproject.toml
+        id: get_version
         run: |
-          python - << 'EOF'
-          import tomllib, pathlib
-          data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
-          print("Project version in pyproject.toml:", data["project"]["version"])
-          EOF
+          VERSION=$(python -c "import tomllib, pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'])")
+          echo "Project version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build distributions
         run: python -m build
 
       - name: Publish distributions
+        id: publish
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: ${{ github.event.inputs.target == 'testpypi' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
           verbose: true
+
+      - name: Create GitHub Release
+        if: steps.publish.outcome == 'success' && github.event.inputs.target == 'pypi'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body: |
+            Release ${{ steps.get_version.outputs.version }}
+            
+            Published to PyPI: https://pypi.org/project/classification-report-as-df/${{ steps.get_version.outputs.version }}/
+          draft: false
